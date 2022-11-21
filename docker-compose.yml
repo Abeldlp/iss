@@ -5,7 +5,7 @@ services:
   api-gateway:
     container_name: api-gateway-container
     build:
-      dockerfile: ./api-gateway/Dockerfile
+      dockerfile: ./Dockerfile
       context: ./api-gateway
     image: abeldlp/api-gateway
     env_file:
@@ -19,8 +19,10 @@ services:
   api-service:
     container_name: api-service-container
     build:
-      dockerfile: ./api-service/Dockerfile
+      dockerfile: ./Dockerfile
       context: ./api-service
+    env_file:
+      - ./api-service/.env.docker
     image: abeldlp/api-service
     ports:
       - "8000:8000"
