@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  #Api gateway
+  api-gateway:
+    container_name: api-gateway-container
+    build:
+      dockerfile: ./api-gateway/Dockerfile
+      context: ./api-gateway
+    image: abeldlp/api-gateway
+    env_file:
+      - ./api-gateway/.env.docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api-service
+
+  #Api service
+  api-service:
+    container_name: api-service-container
+    build:
+      dockerfile: ./api-service/Dockerfile
+      context: ./api-service
+    image: abeldlp/api-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - app-db
+
+  #Database
+  app-db:
+    image: postgres
+    container_name: app-db
+    environment:
+      POSTGRES_DB: "app-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_ROOT_PASSWORD: "password"
+    ports:
+      - "5432:5432"
+    volumes:
+      - app-db-volume:/var/lib/mysql
+
+volumes:
+  app-db-volume:
