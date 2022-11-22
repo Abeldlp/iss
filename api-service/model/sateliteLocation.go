@@ -14,5 +14,5 @@ type SateliteLocation struct {
 	SolarLat   float64 `json:"solar_lat"`
 	SolarLon   float64 `json:"solar_lon"`
 	Units      string  `json:"units"`
-	Timezone   string  `json:"timezone_id"`
+	Timezone   string  `json:"timezone"`
 }
