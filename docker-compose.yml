@@ -29,6 +29,18 @@ services:
     depends_on:
       - app-db
 
+  #Scheduler service
+  scheduler-service:
+    container_name: scheduler-service-container
+    build:
+      dockerfile: ./Dockerfile
+      context: ./schedule-service
+    env_file:
+      - ./schedule-service/.env.docker
+    image: abeldlp/scheduler-service
+    depends_on:
+      - app-db
+
   #Database
   app-db:
     image: postgres
