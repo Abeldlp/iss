@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Initial from "./views/Initial.vue";
+import Dashboard from "./views/Dashboard.vue";
 </script>
 
 <template>
-  <Initial />
+  <Dashboard />
 </template>
 
 <style scoped></style>
