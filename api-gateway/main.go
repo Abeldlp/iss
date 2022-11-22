@@ -17,7 +17,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.Any("/satelite/*proxyPath", handlers.ProxyTo(os.Getenv("API_SERVICE_URL")))
+	r.Any("/*proxyPath", handlers.ProxyTo(os.Getenv("API_SERVICE_URL")))
 
 	r.Run(":8080")
 }

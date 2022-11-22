@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import axios from "axios";
 import { onMounted, ref } from "vue";
 import { SateliteApi } from "../data/satelite";
 

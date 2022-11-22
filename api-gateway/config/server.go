@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitializeServer() *gin.Engine {
+func BuildRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.Use(cors.Default())
