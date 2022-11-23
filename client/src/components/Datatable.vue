@@ -8,6 +8,12 @@ defineProps<{
 
 <template>
   <div class="q-pa-md">
-    <q-table :title="title" :rows="rows" :columns="columns" row-key="name" />
+    <q-table
+      color="primary"
+      :title="title"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+    />
   </div>
 </template>

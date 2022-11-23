@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Datatable from "../components/Datatable.vue";
 import { SateliteApi } from "../data/satelite";
-import { groupedColumns } from "../helpers/datatable/aggregatedData/columns";
-import { sampleColumns } from "../helpers/datatable/sampleData/columns";
-import { onMounted, ref } from "vue";
 import { SateliteLocation } from "../types/entities/sateliteLocation";
+import { groupedColumns } from "../helpers/datatable/aggregatedData/columns";
+import { onMounted, ref, watch } from "vue";
+import { sampleColumns } from "../helpers/datatable/sampleData/columns";
 
 const title = ref("Satelite locations dashboard");
 const sateliteApi = new SateliteApi();
@@ -12,7 +12,8 @@ const sateliteApi = new SateliteApi();
 const locations = ref<SateliteLocation[]>();
 const locationsAggregated = ref<SateliteLocation[]>();
 
-const autoFetch = ref<boolean>(true);
+const autoFetch = ref<boolean>(false);
+const fetchInterval = ref();
 
 const fetchSateliteData = async (): Promise<void> => {
   const res = await sateliteApi.getAll();
@@ -22,6 +23,16 @@ const fetchSateliteData = async (): Promise<void> => {
   locationsAggregated.value = resGrouped;
 };
 
+watch(autoFetch, () => {
+  if (autoFetch.value) {
+    fetchInterval.value = setInterval(() => {
+      fetchSateliteData();
+    }, 60000);
+  } else {
+    clearInterval(fetchInterval.value);
+  }
+});
+
 onMounted(async () => {
   fetchSateliteData();
 });
@@ -30,9 +41,14 @@ onMounted(async () => {
 <template>
   <div>
     <h3>{{ title }}</h3>
-    <q-toggle label="Auto-Fetch" v-model="autoFetch">
+    <div>
+      <q-icon name="auto_mode" size="20px" color="primary" />
+      <q-toggle
+        :label="!autoFetch ? 'Auto-Fetch' : 'Auto-Fetching'"
+        v-model="autoFetch"
+      />
       <q-tooltip>Will pull new data every minute</q-tooltip>
-    </q-toggle>
+    </div>
     <Datatable
       title="Aggregated data"
       :columns="groupedColumns"
