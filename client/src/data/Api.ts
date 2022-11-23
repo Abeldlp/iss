@@ -2,14 +2,14 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { ErrorHandler, ErrorInterface } from "./ErrorHandling";
 
 export default class Api {
-  //header configuration here
+  //Headers configuration here
   private url: string;
 
   constructor() {
     this.url = import.meta.env.VITE_API_URL;
   }
 
-  async get(endpoint: string): Promise<AxiosResponse | ErrorInterface> {
+  async get<T>(endpoint: string): Promise<T | ErrorInterface> {
     try {
       const res: AxiosResponse = await axios.get(this.url + endpoint);
       return res.data;
@@ -22,10 +22,7 @@ export default class Api {
     }
   }
 
-  async post(
-    endpoint: string,
-    paylaod: any
-  ): Promise<AxiosResponse | ErrorInterface> {
+  async post<T>(endpoint: string, paylaod: any): Promise<T | ErrorInterface> {
     try {
       const res: AxiosResponse = await axios.post(this.url + endpoint, paylaod);
       return res.data;
@@ -38,10 +35,7 @@ export default class Api {
     }
   }
 
-  async put(
-    endpoint: string,
-    paylaod: any
-  ): Promise<AxiosResponse | ErrorInterface> {
+  async put<T>(endpoint: string, paylaod: any): Promise<T | ErrorInterface> {
     try {
       const res: AxiosResponse = await axios.put(this.url + endpoint, paylaod);
       return res.data;
