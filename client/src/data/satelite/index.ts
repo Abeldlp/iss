@@ -8,6 +8,6 @@ export class SateliteApi {
   }
 
   getAll() {
-    this.api.get("/");
+    return this.api.get("/");
   }
 }

@@ -5,13 +5,16 @@ import { SateliteApi } from "../data/satelite";
 
 const title = ref("My main page");
 const sateliteApi = new SateliteApi();
-onMounted(() => {
-  sateliteApi.getAll();
+const locations = ref<any>();
+onMounted(async () => {
+  const res = await sateliteApi.getAll();
+  locations.value = res;
 });
 </script>
 
 <template>
   <div>
     <p>{{ title }}</p>
+    <p v-for="loc in locations">{{ loc.id }}</p>
   </div>
 </template>

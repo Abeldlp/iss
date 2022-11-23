@@ -2,18 +2,18 @@ version: "3.9"
 
 services:
   #Api gateway
-  # client:
-  #   container_name: client-container
-  #   build:
-  #     dockerfile: ./Dockerfile
-  #     context: ./client
-  #   image: abeldlp/client
-  #   env_file:
-  #     - ./client/.env
-  #   ports:
-  #     - "3000:8080"
-  #   depends_on:
-  #     - api-service
+  client:
+    container_name: client-container
+    build:
+      dockerfile: ./Dockerfile
+      context: ./client
+    image: abeldlp/client
+    env_file:
+      - ./client/.env
+    ports:
+      - "3000:8080"
+    depends_on:
+      - api-service
 
   #Api gateway
   api-gateway:
@@ -44,16 +44,16 @@ services:
       - app-db
 
   #Scheduler service
-  # scheduler-service:
-  #   container_name: scheduler-service-container
-  #   build:
-  #     dockerfile: ./Dockerfile
-  #     context: ./schedule-service
-  #   env_file:
-  #     - ./schedule-service/.env.docker
-  #   image: abeldlp/scheduler-service
-  #   depends_on:
-  #     - app-db
+  scheduler-service:
+    container_name: scheduler-service-container
+    build:
+      dockerfile: ./Dockerfile
+      context: ./schedule-service
+    env_file:
+      - ./schedule-service/.env.docker
+    image: abeldlp/scheduler-service
+    depends_on:
+      - app-db
 
   #Database
   app-db:
