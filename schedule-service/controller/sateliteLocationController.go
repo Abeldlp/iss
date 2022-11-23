@@ -11,6 +11,7 @@ func SaveSateliteLocation() {
 
 	satelite.GetSateliteLocationData()
 	satelite.GetSateliteCoordinatesTimzone()
+	satelite.AddDateAndHour()
 
 	config.DB.Create(&satelite)
 }

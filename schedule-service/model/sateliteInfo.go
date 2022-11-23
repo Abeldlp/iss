@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/Abeldlp/fullinfo/scheduler-service/util"
@@ -17,12 +18,15 @@ type SateliteLocation struct {
 	Velocity   float64        `json:"velocity"`
 	Visibility string         `json:"visibility"`
 	Footprint  float64        `json:"footprint"`
-	Timestamp  float64        `json:"timestamp"`
+	Timestamp  int64          `json:"timestamp"`
 	Daynum     float64        `json:"daynum"`
 	SolarLat   float64        `json:"solar_lat"`
 	SolarLon   float64        `json:"solar_lon"`
 	Units      string         `json:"units"`
 	Timezone   string         `json:"timezone_id"`
+	Date       string         `json:"date"`
+	Hour       string         `json:"hour"`
+	DateISO    time.Time      `json:"date_iso"`
 	CreatedAt  time.Time      `json:"created_at"`
 	UpdatedAt  time.Time      `json:"updated_at"`
 	DeletedAt  gorm.DeletedAt `json:"deleted_at" gorm:"index"`
@@ -39,4 +43,17 @@ func (satelite *SateliteLocation) GetSateliteCoordinatesTimzone() {
 	url := "https://api.wheretheiss.at/v1/coordinates/" + latitude + "," + longitude
 
 	util.GetJson(url, &satelite)
+}
+
+func (satelite *SateliteLocation) AddDateAndHour() {
+	timeStamp := strconv.FormatInt(satelite.Timestamp, 10)
+
+	i, err := strconv.ParseInt(timeStamp, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	tm := time.Unix(i, 0)
+	satelite.DateISO = tm
+	satelite.Date = tm.Format("02-01-2006")
+	satelite.Hour = tm.Format("15")
 }
