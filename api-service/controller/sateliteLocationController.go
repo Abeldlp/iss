@@ -10,7 +10,12 @@ import (
 
 func GetAllSateliteLocations(c *gin.Context) {
 	var sateliteLocations []model.SateliteLocation
-	config.DB.Find(&sateliteLocations)
+	if err := config.DB.Find(&sateliteLocations).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Something went wrong",
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, sateliteLocations)
 }
@@ -25,7 +30,18 @@ func AggregateSateliteLocations(c *gin.Context) {
 
 	var results []Result
 
-	config.DB.Model(&model.SateliteLocation{}).Select("timezone, date, hour, count(*) as minutes").Group("timezone, date, hour").Order("minutes desc").Find(&results)
+	if err := config.DB.
+		Model(&model.SateliteLocation{}).
+		Select("timezone, date, hour, count(*) as minutes").
+		Group("timezone, date, hour").
+		Order("minutes desc").
+		Find(&results).Error; err != nil {
+
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Something went wrong",
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, results)
 }
