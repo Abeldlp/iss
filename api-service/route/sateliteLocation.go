@@ -10,5 +10,6 @@ func AppendSateliteLocationRoute(r *gin.Engine) {
 
 	{
 		satelite.GET("/", controller.GetAllSateliteLocations)
+		satelite.GET("/grouped", controller.AggregateSateliteLocations)
 	}
 }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import axios from "axios";
 import { onMounted, ref } from "vue";
 import { SateliteApi } from "../data/satelite";
 
@@ -9,12 +8,14 @@ const locations = ref<any>();
 onMounted(async () => {
   const res = await sateliteApi.getAll();
   locations.value = res;
+
+  const resGrouped = await sateliteApi.getAggregated();
 });
 </script>
 
 <template>
   <div>
     <p>{{ title }}</p>
-    <p v-for="loc in locations">{{ loc.id }}</p>
+    <p v-for="loc in locations">{{ loc.timezone }}</p>
   </div>
 </template>

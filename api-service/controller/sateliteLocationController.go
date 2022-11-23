@@ -14,3 +14,18 @@ func GetAllSateliteLocations(c *gin.Context) {
 
 	c.JSON(http.StatusOK, sateliteLocations)
 }
+
+func AggregateSateliteLocations(c *gin.Context) {
+	type Result struct {
+		Timezone string `json:"timezone"`
+		Date     string `json:"date"`
+		Hour     string `json:"hour"`
+		Minutes  int    `json:"minutes"`
+	}
+
+	var results []Result
+
+	config.DB.Model(&model.SateliteLocation{}).Select("timezone, date, hour, count(*) as minutes").Group("timezone, date, hour").Order("minutes desc").Find(&results)
+
+	c.JSON(http.StatusOK, results)
+}

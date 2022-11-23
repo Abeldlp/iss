@@ -10,4 +10,8 @@ export class SateliteApi {
   getAll() {
     return this.api.get("/");
   }
+
+  getAggregated() {
+    return this.api.get("/grouped");
+  }
 }
