@@ -33,8 +33,10 @@ func (satelite *SateliteLocation) GetSateliteLocationData() {
 }
 
 func (satelite *SateliteLocation) GetSateliteCoordinatesTimzone() {
-	var latitude string = fmt.Sprintf("%f", satelite.Altitude)
-	var longitude string = fmt.Sprintf("%f", satelite.Latitude)
+	var latitude string = fmt.Sprintf("%f", satelite.Latitude)
+	var longitude string = fmt.Sprintf("%f", satelite.Longitude)
 
-	util.GetJson("https://api.wheretheiss.at/v1/coordinates/"+latitude+","+longitude, &satelite)
+	url := "https://api.wheretheiss.at/v1/coordinates/" + latitude + "," + longitude
+
+	util.GetJson(url, &satelite)
 }
