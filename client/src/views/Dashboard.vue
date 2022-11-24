@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import Datatable from "../components/Datatable.vue";
+import Informational from "../components/Informational.vue";
 import { SateliteApi } from "../data/satelite";
-import { SateliteLocation } from "../types/entities/sateliteLocation";
 import { groupedColumns } from "../helpers/datatable/aggregatedData/columns";
+import {
+  locations,
+  locationsAggregated,
+  persistentParameters,
+} from "../data/satelite/sateliteData";
 import { onMounted, ref, watch } from "vue";
 import { sampleColumns } from "../helpers/datatable/sampleData/columns";
 
-const title = ref("Satelite locations dashboard");
 const sateliteApi = new SateliteApi();
-
-const locations = ref<SateliteLocation[]>();
-const locationsAggregated = ref<SateliteLocation[]>();
 
 const autoFetch = ref<boolean>(false);
 const fetchInterval = ref();
@@ -19,7 +20,9 @@ const fetchSateliteData = async (): Promise<void> => {
   const res = await sateliteApi.getAll();
   locations.value = res;
 
-  const resGrouped = await sateliteApi.getAggregated();
+  const resGrouped = await sateliteApi.getAggregated(
+    persistentParameters.value
+  );
   locationsAggregated.value = resGrouped;
 };
 
@@ -40,20 +43,24 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h3>{{ title }}</h3>
-    <div>
-      <q-icon name="auto_mode" size="20px" color="primary" />
+    <h3>International Space Station dashboard</h3>
+    <div style="width: 300px; margin: 0 auto">
       <q-toggle
         :label="!autoFetch ? 'Auto-Fetch' : 'Auto-Fetching'"
         v-model="autoFetch"
       />
-      <q-tooltip>Will pull new data every minute</q-tooltip>
+      <q-tooltip
+        >If turned on automatically pull new data every minute</q-tooltip
+      >
+      <q-spinner-puff v-if="autoFetch" size="20px" color="primary" />
     </div>
     <Datatable
+      advanced
       title="Aggregated data"
       :columns="groupedColumns"
       :rows="locationsAggregated"
     />
     <Datatable title="Sample data" :columns="sampleColumns" :rows="locations" />
+    <Informational />
   </div>
 </template>

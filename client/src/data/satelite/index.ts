@@ -1,6 +1,6 @@
 import Api from "../Api";
 import { SateliteLocation } from "../../types/entities/sateliteLocation";
-import { ErrorHandler, ErrorInterface } from "../ErrorHandling";
+import { ErrorHandler } from "../ErrorHandling";
 
 export class SateliteApi {
   private api: Api;
@@ -11,8 +11,8 @@ export class SateliteApi {
     this.errorHandling = new ErrorHandler();
   }
 
-  async getAll(): Promise<SateliteLocation[]> {
-    const data = await this.api.get<SateliteLocation[]>("/");
+  async getAll(params?: any): Promise<SateliteLocation[]> {
+    const data = await this.api.get<SateliteLocation[]>("/", params);
 
     if (this.errorHandling.isError(data)) {
       throw data;
@@ -21,8 +21,8 @@ export class SateliteApi {
     return data;
   }
 
-  async getAggregated(): Promise<SateliteLocation[]> {
-    const data = await this.api.get<SateliteLocation[]>("/grouped");
+  async getAggregated(params?: any): Promise<SateliteLocation[]> {
+    const data = await this.api.get<SateliteLocation[]>("/grouped", params);
 
     if (this.errorHandling.isError(data)) {
       throw data;

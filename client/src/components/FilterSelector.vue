@@ -1,0 +1,51 @@
+<script setup lang="ts">
+import { ref, watch } from "vue";
+
+const props = defineProps<{
+  column: any;
+  rows: any;
+}>();
+
+const initialLoad = ref(true);
+const options = ref();
+
+const emit = defineEmits<{
+  (e: "updateSelected", payload: any): void;
+}>();
+
+const selectedValues = ref();
+
+const getValues = (key: string) => {
+  return [...new Set(props.rows?.map((item: any) => item[key]))].sort(
+    (a: any, b: any) => a - b
+  );
+};
+
+const passValues = (val: string[]) => {
+  emit("updateSelected", { [props.column.name]: val });
+};
+
+watch(props, () => {
+  initialLoad.value && (options.value = getValues(props.column.name));
+  initialLoad.value = false;
+});
+</script>
+
+<template>
+  <q-select
+    v-if="column.name !== 'minutes'"
+    @update:model-value="passValues"
+    v-model="selectedValues"
+    multiple
+    outlined
+    dense
+    options-dense
+    :display-value="column.label"
+    emit-value
+    map-options
+    :options="options"
+    option-value="name"
+    options-cover
+    style="min-width: 150px"
+  />
+</template>

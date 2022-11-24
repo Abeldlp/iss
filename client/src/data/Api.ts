@@ -9,9 +9,11 @@ export default class Api {
     this.url = import.meta.env.VITE_API_URL;
   }
 
-  async get<T>(endpoint: string): Promise<T | ErrorInterface> {
+  async get<T>(endpoint: string, params = {}): Promise<T | ErrorInterface> {
     try {
-      const res: AxiosResponse = await axios.get(this.url + endpoint);
+      const res: AxiosResponse = await axios.get(this.url + endpoint, {
+        params: params,
+      });
       return res.data;
     } catch (error) {
       const err = error as AxiosError;
