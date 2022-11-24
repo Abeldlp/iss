@@ -6,7 +6,6 @@ const props = defineProps<{
   rows: any;
 }>();
 
-const initialLoad = ref(true);
 const options = ref();
 
 const emit = defineEmits<{
@@ -26,8 +25,9 @@ const passValues = (val: string[]) => {
 };
 
 watch(props, () => {
-  initialLoad.value && (options.value = getValues(props.column.name));
-  initialLoad.value = false;
+  const latestValues = getValues(props.column.name);
+  latestValues.length >= (options.value?.length || 0) &&
+    (options.value = latestValues);
 });
 </script>
 

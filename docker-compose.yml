@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  #Api gateway
+  #Client app
   client:
     container_name: client-container
     build:
