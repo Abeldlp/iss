@@ -51,7 +51,7 @@ For local development all the applications run in docker containers and it is or
 Clone this repository
 
 ```bash
-git clone https://www.github.com/Abeldlp/fullinfo
+git clone https://github.com/Abeldlp/fullinfo.git
 ```
 
 Go to the directory
