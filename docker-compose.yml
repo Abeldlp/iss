@@ -25,7 +25,7 @@ services:
     env_file:
       - ./api-gateway/.env.docker
     ports:
-      - "8080:8080"
+      - "4444:8080"
     depends_on:
       - api-service
 

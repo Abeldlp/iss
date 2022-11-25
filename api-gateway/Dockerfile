@@ -8,6 +8,6 @@ RUN go mod download
 
 RUN go build -o api-gateway
 
-EXPOSE 8080
+EXPOSE 4444 
 
 CMD [ "./api-gateway" ]
