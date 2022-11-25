@@ -87,7 +87,7 @@ If you want to access the database container use a client of your liking, and co
 - PORT `5432`
 - DATABASE `app-db`
 
-If you want to play with the api, the api is listening on [http://localhost:8080](http://localhost:8080)
+If you want to play with the api, the api gateway is listening on [http://localhost:4444](http://localhost:4444)
 
 To stop the containers you can run the following
 
