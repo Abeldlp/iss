@@ -1,7 +1,7 @@
 package test
 
 import (
-	"io/ioutil"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,6 +10,8 @@ import (
 	"github.com/Abeldlp/fullinfo/api-service/config"
 	"github.com/Abeldlp/fullinfo/api-service/model"
 	"github.com/Abeldlp/fullinfo/api-service/route"
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/assert/v2"
 	"gorm.io/gorm"
 )
 
@@ -48,29 +50,71 @@ func sateliteLocationMocker(n int64) []model.SateliteLocation {
 	return ret
 }
 
-func TestGetAll(t *testing.T) {
+func beforeEach() (*gorm.DB, []model.SateliteLocation, *gin.Engine) {
 	test_db = config.TestDBInit()
 	test_db.AutoMigrate(&model.SateliteLocation{})
-	sateliteLocationMocker(2)
+	mockedLocations := sateliteLocationMocker(1)
 
 	r := config.InitializeServer()
 	route.AppendSateliteLocationRoute(r)
+
+	return test_db, mockedLocations, r
+}
+
+func TestGetAll(t *testing.T) {
+
+	test_db, mockedLocations, r := beforeEach()
 
 	req, _ := http.NewRequest("GET", "/", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
-	responseData, _ := ioutil.ReadAll(w.Body)
+	var locations []model.SateliteLocation
 
-	t.Log(string(responseData))
+	json.NewDecoder(w.Body).Decode(&locations)
 
-	config.TestDBFree()
+	assert.Equal(t, mockedLocations, locations)
+
+	config.TestDBFree(test_db)
 }
 
-// func TestMain(m *testing.M) {
-// 	test_db = config.TestDBInit()
-// 	test_db.AutoMigrate(&model.SateliteLocation{})
-// 	exitVal := m.Run()
-// 	// config.TestDBFree(test_db)
-// 	os.Exit(exitVal)
-// }
+func TestGetAggregated(t *testing.T) {
+	test_db, _, r := beforeEach()
+
+	req, _ := http.NewRequest("GET", "/grouped", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	var locations []model.AggregatedResult
+
+	json.NewDecoder(w.Body).Decode(&locations)
+
+	expected := []model.AggregatedResult{
+		{
+			Timezone: "Europe/Amsterdam",
+			Date:     "26-08-1991",
+			Hour:     "15",
+			Minutes:  1,
+		},
+	}
+	assert.Equal(t, expected, locations)
+
+	config.TestDBFree(test_db)
+}
+
+func TestFilterWithoutResults(t *testing.T) {
+	test_db, _, r := beforeEach()
+
+	req, _ := http.NewRequest("GET", "/grouped?timezone[]=Europe/Berlin", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	var locations []model.AggregatedResult
+
+	json.NewDecoder(w.Body).Decode(&locations)
+
+	expected := []model.AggregatedResult{}
+	assert.Equal(t, expected, locations)
+
+	config.TestDBFree(test_db)
+}
