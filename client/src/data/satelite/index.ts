@@ -14,6 +14,8 @@ export class SateliteApi {
   async getAll(params?: any): Promise<SateliteLocation[]> {
     const data = await this.api.get<SateliteLocation[]>("/", params);
 
+    console.log("satelite/index.ts", data);
+
     if (this.errorHandling.isError(data)) {
       throw data;
     }
