@@ -1,20 +1,25 @@
 {
   "folders": [
-	{
-		"path": "api-gateway"
-	},
-	{
-		"path": "api-service"
-	},
-	{
-		"path": "schedule-service"
-	},
-	{
-		"path": "client"
-	},
-	{
-		"path": "."
-	}
-],
+    {
+      "name": "api-gateway",
+      "path": "api-gateway"
+    },
+    {
+      "name": "api-service",
+      "path": "api-service"
+    },
+    {
+      "name": "schedule-service",
+      "path": "schedule-service"
+    },
+    {
+      "name": "client",
+      "path": "client"
+    },
+    {
+      "name": "fullinfo",
+      "path": "."
+    }
+  ],
   "settings": {}
 }
