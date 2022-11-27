@@ -54,7 +54,11 @@ watch(parameters.value, () => {
     >
       <template v-slot:top>
         <div style="display: flex; align-items: center">
-          <span style="margin: 20px; font-weight: bold">{{ title }}</span>
+          <span
+            data-cy="datatable-label"
+            style="margin: 20px; font-weight: bold"
+            >{{ title }}</span
+          >
 
           <div v-if="advanced" style="display: flex">
             <FilterSelector

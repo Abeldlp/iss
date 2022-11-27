@@ -47,5 +47,14 @@ watch(props, () => {
     option-value="name"
     options-cover
     style="min-width: 150px"
-  />
+    data-cy="filter-selector"
+  >
+    <template v-slot:option="scope">
+      <q-item v-bind="scope.itemProps" data-cy="filter-selector-option">
+        <q-item-section>
+          <q-item-label>{{ scope.opt }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </template>
+  </q-select>
 </template>
