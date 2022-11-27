@@ -16,4 +16,5 @@ export interface SateliteLocation {
   date: string;
   hour: string;
   date_iso: Date;
+  minutes?: number;
 }

@@ -9,7 +9,7 @@
     "build": "vue-tsc && vite build",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
     "preview": "vite preview --mode test",
-    "test:unit": "vitest --environment jsdom --root src/",
+    "test:unit": "vitest --environment jsdom --root src/ --mode test",
     "test:unit:ci": "vitest run --environment jsdom --root src/",
     "test:e2e": "npm run build:test && start-server-and-test 'vite dev --port 3000 --mode test' :3000 'cypress open --e2e'",
     "test:e2e:ci": "start-server-and-test 'vite dev --port 3000 --mode test' :3000 'cypress run --e2e --config video=false sreenshot=false'"

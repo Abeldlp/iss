@@ -191,8 +191,52 @@ export const sateliteData = [
   },
 ];
 
+export const sateliteDataAggregated = [
+  {
+    timezone: "Etc/GMT-10",
+    date: "24-11-2022",
+    hour: "21",
+    minutes: 3,
+  },
+  {
+    timezone: "Etc/GMT-11",
+    date: "24-11-2022",
+    hour: "21",
+    minutes: 2,
+  },
+  {
+    timezone: "Europe/Moscow",
+    date: "25-11-2022",
+    hour: "13",
+    minutes: 2,
+  },
+  {
+    timezone: "Asia/Oral",
+    date: "25-11-2022",
+    hour: "13",
+    minutes: 1,
+  },
+  {
+    timezone: "Asia/Yekaterinburg",
+    date: "25-11-2022",
+    hour: "13",
+    minutes: 1,
+  },
+  {
+    timezone: "Asia/Ulaanbaatar",
+    date: "25-11-2022",
+    hour: "13",
+    minutes: 1,
+  },
+];
+
 export const MockData: { [key: string]: any } = {
   get() {
     return sateliteData;
+  },
+  grouped: {
+    get() {
+      return sateliteDataAggregated;
+    },
   },
 };

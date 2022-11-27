@@ -6,6 +6,10 @@ export default class MockDataReader {
   static get(endpoint: string, config: any): Record<never, never> | undefined {
     console.groupCollapsed(`%cread mock for ${endpoint}`, this.consoleStyle);
     console.groupEnd();
-    return MockData.get();
+    const subresource = endpoint.split("/")[1];
+
+    return subresource
+      ? MockData[subresource].get(config)
+      : MockData.get(config);
   }
 }

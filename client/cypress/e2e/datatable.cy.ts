@@ -34,7 +34,7 @@ describe("Datatable Test Case", () => {
       .first()
       .click();
     cy.get(".q-table > tbody > :nth-child(1) > :nth-child(1)").contains(
-      "Europe/Moscow"
+      "Asia/Ulaanbaatar"
     );
   });
 });
