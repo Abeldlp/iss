@@ -14,6 +14,7 @@ The whole purpose is to store the current location, together with the timezone, 
 - [Application Structure](#application-structure)
 - [Application Dataflow](#application-dataflow)
 - [Running app locally](#running-app-locally)
+- [Application testing](#application-testing)
 - [Application usage](#application-usage)
 - [Author message](#author-message)
 
@@ -38,7 +39,7 @@ For local development all the applications run in docker containers and it is or
 </p>
 
 1. Data gets pulled every minute from the iss api and it is converted to a schema needed for our research.
-2. Once converted the data gets store into the database, this proccess only goes one way and cron service is only responsible to writing data to the DB.
+2. Once the data is converted, it gets store into the database, this proccess only goes one way and cron service is only responsible to writing data to the DB.
 3. The data is pulled by the api service when a GET request is issued, this proccess only goes one way and api service is only responsible for reading the data.
 4. The api gateway is accessed via an api gateway that acts as a centralized entry point to other services.
 5. The client application communicates with the api via the gateway, and retrieves the needed data to be able to display it to the end user.
@@ -93,6 +94,58 @@ To stop the containers you can run the following
 
 ```bash
 docker-compose down
+```
+
+> Optionaly if you have `make` and `build-essentials` installed locally you can make use of the `Makefile`
+
+### Application testing
+
+To run all tests at once you can make use of the Makefile. You will need `make` and `build-essentials` installed locally. Refer to your OS/Distro installation docs.
+
+```bash
+make test
+```
+
+The above command will run api-service tests, cron-service tests, client unit tests and client e2e tests.
+
+To run them individually you can run the following:
+
+**Api Service**
+
+```bash
+cd api-service && go test ./test
+```
+
+**Cron Service**
+
+```bash
+cd schedule-service && go test ./test
+```
+
+**Client (unit)**
+
+```bash
+cd client && npm run test:unit:ci
+```
+
+**Client (e2e)**
+
+```bash
+cd client && npm run test:e2e:ci
+```
+
+For the client's e2e testing you can also run them in preview mode, so you can visualize what the tests are doing on a Chromium, Electron or Firefox browser.
+You can run them with the following command:
+
+```bash
+cd client && npm run test:e2e
+```
+
+In case of client project showcase, it is also possible to run the project in mocking mode, which will mock api calls and use static data. The project will be served on [http://localhost:3000](http://localhost:3000)
+You can serve the project with mock locally with the following command:
+
+```bash
+cd client && npm run dev-mock
 ```
 
 ### Application usage
