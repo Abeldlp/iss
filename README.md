@@ -101,6 +101,7 @@ docker-compose down
 ### Application testing
 
 To run all tests at once you can make use of the Makefile. You will need `make` and `build-essentials` installed locally. Refer to your OS/Distro installation docs.
+Before running any tests don't forget to stop all the containers, since client e2e testing is using the same port mapping to serve with mock and run tests.
 
 ```bash
 make test
