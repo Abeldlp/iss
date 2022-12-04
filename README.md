@@ -67,7 +67,7 @@ MAIL_PASSWORD=mypassword
 Clone this repository
 
 ```bash
-git clone https://github.com/Abeldlp/fullinfo.git
+git clone https://github.com/Abeldlp/iss.git
 ```
 
 Go to the directory
