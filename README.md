@@ -73,7 +73,7 @@ git clone https://github.com/Abeldlp/iss.git
 Go to the directory
 
 ```bash
-cd fullinfo
+cd iss
 ```
 
 Build docker images (cup of coffee)
