@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/Abeldlp/fullinfo/mail-service/config"
+	"github.com/Abeldlp/fullinfo/mail-service/models"
 	"github.com/Abeldlp/fullinfo/mail-service/utils"
 )
 
@@ -29,9 +30,15 @@ func InitializeNotificationConsumer() {
 			timezone := string(message.Body)
 			log.Printf(" > Received message: %s\n", timezone)
 
-			to := "a.delapaz@presspage.com"
+			var users []models.User
+			config.DB.Where("timezone = ?", timezone).Find(&users)
 
-			utils.SendEmail(to)
+			if len(users) > 0 {
+				for _, user := range users {
+					to := user.Email
+					utils.SendEmail(to)
+				}
+			}
 		}
 	}()
 

@@ -7,6 +7,7 @@ import (
 
 func main() {
 	config.InitializeEnvironmentVariables()
+	config.InitializeDatabase()
 	config.InitializeRabbitConnection()
 
 	consumers.InitializeNotificationConsumer()
