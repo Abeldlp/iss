@@ -5,7 +5,7 @@ import (
 	"github.com/Abeldlp/fullinfo/scheduler-service/model"
 )
 
-func SaveSateliteLocation() {
+func SaveSateliteLocation() model.SateliteLocation {
 
 	var satelite model.SateliteLocation
 
@@ -14,4 +14,6 @@ func SaveSateliteLocation() {
 	satelite.AddDateAndHour()
 
 	config.DB.Create(&satelite)
+
+	return satelite
 }

@@ -1,6 +1,38 @@
 version: "3.9"
 
 services:
+  # RabbitMQ Message broker
+  message-broker:
+    image: rabbitmq:3-management-alpine
+    container_name: message-broker
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  #Database
+  app-db:
+    image: postgres
+    container_name: app-db
+    environment:
+      POSTGRES_DB: "app-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_ROOT_PASSWORD: "password"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "app-db"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    ports:
+      - "5432:5432"
+    volumes:
+      - app-db-volume:/var/lib/mysql
+
   #Client app
   client:
     container_name: client-container
@@ -41,7 +73,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - app-db
+      app-db:
+        condition: service_healthy
 
   #Scheduler service
   scheduler-service:
@@ -53,29 +86,10 @@ services:
       - ./schedule-service/.env.docker
     image: abeldlp/scheduler-service
     depends_on:
-      - app-db
-
-  # RabbitMQ Message broker
-  # message-broker:
-  #   image: rabbitmq:3-management-alpine
-  #   container_name: message-broker
-  #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
-
-  #Database
-  app-db:
-    image: postgres
-    container_name: app-db
-    environment:
-      POSTGRES_DB: "app-db"
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_ROOT_PASSWORD: "password"
-    ports:
-      - "5432:5432"
-    volumes:
-      - app-db-volume:/var/lib/mysql
+      app-db:
+        condition: service_healthy
+      message-broker:
+        condition: service_healthy
 
 volumes:
   app-db-volume:
