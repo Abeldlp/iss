@@ -13,12 +13,12 @@
       "path": "schedule-service"
     },
     {
-      "name": "client",
-      "path": "client"
-    },
-    {
       "name": "mail-service",
       "path": "mail-service"
+    },
+    {
+      "name": "client",
+      "path": "client"
     },
     {
       "name": "fullinfo",

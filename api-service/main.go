@@ -13,6 +13,7 @@ func main() {
 
 	//Routes
 	route.AppendSateliteLocationRoute(r)
+	route.AppendUserRoute(r)
 
 	r.Run(":8000")
 }

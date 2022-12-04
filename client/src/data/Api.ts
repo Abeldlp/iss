@@ -9,8 +9,8 @@ export default class Api {
   private mock =
     import.meta.env.MODE === "test" ? new AxiosAdapter(axios) : null;
 
-  constructor() {
-    this.url = import.meta.env.VITE_API_URL;
+  constructor(url = import.meta.env.VITE_API_URL) {
+    this.url = url;
   }
 
   async get<T>(endpoint: string, params = {}): Promise<T | ErrorInterface> {

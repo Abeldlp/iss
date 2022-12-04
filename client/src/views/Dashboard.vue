@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Datatable from "../components/Datatable.vue";
+import EmailSubscriber from "../components/EmailSubscriber.vue";
 import Informational from "../components/Informational.vue";
 import { SateliteApi } from "../data/satelite";
 import { groupedColumns } from "../helpers/datatable/aggregatedData/columns";
@@ -44,6 +45,9 @@ onMounted(async () => {
 <template>
   <div>
     <h3>International Space Station dashboard</h3>
+    <div>
+      <EmailSubscriber />
+    </div>
     <div style="width: 300px; margin: 0 auto">
       <q-toggle
         :label="!autoFetch ? 'Auto-Fetch' : 'Auto-Fetching'"
