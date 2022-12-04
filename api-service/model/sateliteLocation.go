@@ -3,7 +3,7 @@ package model
 import (
 	"time"
 
-	"github.com/Abeldlp/fullinfo/api-service/config"
+	"github.com/Abeldlp/iss/api-service/config"
 	"gorm.io/gorm"
 )
 

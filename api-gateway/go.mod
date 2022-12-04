@@ -1,4 +1,4 @@
-module github.com/Abeldlp/fullinfo/api-gateway
+module github.com/Abeldlp/iss/api-gateway
 
 go 1.18
 

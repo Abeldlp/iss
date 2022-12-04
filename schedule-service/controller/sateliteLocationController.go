@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/Abeldlp/fullinfo/scheduler-service/config"
-	"github.com/Abeldlp/fullinfo/scheduler-service/model"
+	"github.com/Abeldlp/iss/scheduler-service/config"
+	"github.com/Abeldlp/iss/scheduler-service/model"
 )
 
 func SaveSateliteLocation() model.SateliteLocation {

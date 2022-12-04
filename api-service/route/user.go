@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/Abeldlp/fullinfo/api-service/controller"
+	"github.com/Abeldlp/iss/api-service/controller"
 	"github.com/gin-gonic/gin"
 )
 

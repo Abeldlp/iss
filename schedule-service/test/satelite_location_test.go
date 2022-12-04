@@ -3,9 +3,9 @@ package test
 import (
 	"testing"
 
-	"github.com/Abeldlp/fullinfo/scheduler-service/config"
-	"github.com/Abeldlp/fullinfo/scheduler-service/controller"
-	"github.com/Abeldlp/fullinfo/scheduler-service/model"
+	"github.com/Abeldlp/iss/scheduler-service/config"
+	"github.com/Abeldlp/iss/scheduler-service/controller"
+	"github.com/Abeldlp/iss/scheduler-service/model"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
 )

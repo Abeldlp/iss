@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Abeldlp/fullinfo/scheduler-service/config"
-	"github.com/Abeldlp/fullinfo/scheduler-service/cron"
+	"github.com/Abeldlp/iss/scheduler-service/config"
+	"github.com/Abeldlp/iss/scheduler-service/cron"
 )
 
 func main() {

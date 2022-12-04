@@ -3,9 +3,9 @@ package consumers
 import (
 	"log"
 
-	"github.com/Abeldlp/fullinfo/mail-service/config"
-	"github.com/Abeldlp/fullinfo/mail-service/models"
-	"github.com/Abeldlp/fullinfo/mail-service/utils"
+	"github.com/Abeldlp/iss/mail-service/config"
+	"github.com/Abeldlp/iss/mail-service/models"
+	"github.com/Abeldlp/iss/mail-service/utils"
 )
 
 func InitializeNotificationConsumer() {

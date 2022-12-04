@@ -1,4 +1,4 @@
-module github.com/Abeldlp/fullinfo/api-service
+module github.com/Abeldlp/iss/api-service
 
 go 1.18
 

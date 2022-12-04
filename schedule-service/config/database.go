@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Abeldlp/fullinfo/scheduler-service/model"
+	"github.com/Abeldlp/iss/scheduler-service/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

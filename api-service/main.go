@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Abeldlp/fullinfo/api-service/config"
-	"github.com/Abeldlp/fullinfo/api-service/route"
+	"github.com/Abeldlp/iss/api-service/config"
+	"github.com/Abeldlp/iss/api-service/route"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/Abeldlp/fullinfo/api-service/model"
+	"github.com/Abeldlp/iss/api-service/model"
 	"github.com/gin-gonic/gin"
 )
 

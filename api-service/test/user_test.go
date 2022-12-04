@@ -6,9 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Abeldlp/fullinfo/api-service/config"
-	"github.com/Abeldlp/fullinfo/api-service/model"
-	"github.com/Abeldlp/fullinfo/api-service/route"
+	"github.com/Abeldlp/iss/api-service/config"
+	"github.com/Abeldlp/iss/api-service/model"
+	"github.com/Abeldlp/iss/api-service/route"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/assert/v2"
 	"gorm.io/gorm"

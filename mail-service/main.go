@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Abeldlp/fullinfo/mail-service/config"
-	"github.com/Abeldlp/fullinfo/mail-service/consumers"
+	"github.com/Abeldlp/iss/mail-service/config"
+	"github.com/Abeldlp/iss/mail-service/consumers"
 )
 
 func main() {

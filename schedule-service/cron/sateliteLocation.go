@@ -3,8 +3,8 @@ package cron
 import (
 	"time"
 
-	"github.com/Abeldlp/fullinfo/scheduler-service/config"
-	"github.com/Abeldlp/fullinfo/scheduler-service/controller"
+	"github.com/Abeldlp/iss/scheduler-service/config"
+	"github.com/Abeldlp/iss/scheduler-service/controller"
 	"github.com/go-co-op/gocron"
 	"github.com/streadway/amqp"
 )

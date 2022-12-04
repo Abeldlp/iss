@@ -1,4 +1,4 @@
-module github.com/Abeldlp/fullinfo/scheduler-service
+module github.com/Abeldlp/iss/scheduler-service
 
 go 1.18
 

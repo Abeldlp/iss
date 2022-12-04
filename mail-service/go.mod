@@ -1,4 +1,4 @@
-module github.com/Abeldlp/fullinfo/mail-service
+module github.com/Abeldlp/iss/mail-service
 
 go 1.18
 

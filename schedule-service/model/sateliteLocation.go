@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Abeldlp/fullinfo/scheduler-service/util"
+	"github.com/Abeldlp/iss/scheduler-service/util"
 	"gorm.io/gorm"
 )
 

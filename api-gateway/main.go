@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/Abeldlp/fullinfo/api-gateway/handlers"
+	"github.com/Abeldlp/iss/api-gateway/handlers"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
