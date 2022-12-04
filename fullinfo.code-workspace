@@ -17,6 +17,10 @@
       "path": "client"
     },
     {
+      "name": "mail-service",
+      "path": "mail-service"
+    },
+    {
       "name": "fullinfo",
       "path": "."
     }

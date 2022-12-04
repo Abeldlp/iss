@@ -91,5 +91,20 @@ services:
       message-broker:
         condition: service_healthy
 
+  #Mail service
+  mail-service:
+    container_name: mail-service-container
+    build:
+      dockerfile: ./Dockerfile
+      context: ./mail-service
+    env_file:
+      - ./mail-service/.env.docker
+    image: abeldlp/mail-service
+    depends_on:
+      app-db:
+        condition: service_healthy
+      message-broker:
+        condition: service_healthy
+
 volumes:
   app-db-volume:
