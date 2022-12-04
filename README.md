@@ -22,10 +22,12 @@ The whole purpose is to store the current location, together with the timezone, 
 
 This application is structured by:
 
-- **Cron Service (Go)** _A service that which purpose is to run cronjobs_
+- **Cron Service (Go)** _A service which purpose is to run cronjobs_
 - **Api Service (Go)** _A web server to be consumed by client application_
+- **Mail Service (Go)** _A service that takes care of sending emails_
 - **Api Gateway (Go)** _An entry point to the services_
 - **Client (Vue)** _An application the end user can interact with_
+- **RabbitMQ** _Message broker_
 - **PostgreSQL Database** _Database to store ISS location_
 
 For local development all the applications run in docker containers and it is orchestrated via docker-compose
@@ -38,16 +40,29 @@ For local development all the applications run in docker containers and it is or
   />
 </p>
 
-1. Data gets pulled every minute from the iss api and it is converted to a schema needed for our research.
-2. Once the data is converted, it gets store into the database, this proccess only goes one way and cron service is only responsible to writing data to the DB.
-3. The data is pulled by the api service when a GET request is issued, this proccess only goes one way and api service is only responsible for reading the data.
-4. The api gateway is accessed via an api gateway that acts as a centralized entry point to other services.
-5. The client application communicates with the api via the gateway, and retrieves the needed data to be able to display it to the end user.
-6. The end user is able to access the client application via the browser.
+1. The Cron Service pulls the ISS's location every minute from the iss api and it is converted to a schema needed for our research.
+2. Once the data is converted, the Cron Service stores the data into the database, this proccess only goes one way and cron service is only responsible for writing data to the DB.
+3. After the data is saved, the Cron Service queues the timezone into a rabbitMQ queue.
+4. The Mail Service consumes the Notification Queue and on a receive event, it triggers the notification functionality.
+5. The Mail Service queries the database to find subscribed users based on the timezone recieved.
+6. After the users are found, it sends a notification to all of them.
+7. The Api Service can get and query the ISS location data.
+8. The Api Serice can also write subscribed users to the database.
+9. The Api Service recieves all the calls via the api gateway.
+10. The Client Vue application is responsible for displaying datatables with the data and create subscribers.
+11. The end user is capable to get satelite data and post it's email to our database.
 
 ### Running app locally
 
 > To be able to run the application you need docker and docker-compose installed. Please refer to the [docs](https://docs.docker.com/compose/install/) to install them before taking any further steps
+
+For the Mail service to work add your email credentials to `.env.docker`, the emails will be sent from the specified account.
+
+```
+MAIL_HOST="smtp.gmail.com"
+MAIL_DOMAIN_ADDRESS=example@mail.com
+MAIL_PASSWORD=mypassword
+```
 
 Clone this repository
 
@@ -153,10 +168,16 @@ cd client && npm run dev-mock
 
 The client application consists on:
 
+- Email subscription
 - Autofetch button.
 - Aggregated Datatable
 - Sample Datatable
 - Informational tree
+
+**Email subscription**
+
+By subscribing to the email service, you save the email and timezone in the database.
+Everytime a new ISS location is added to the database, the message broker will queue the timezone for the mail service to recieve. If the ISS is on you timezone it will send you an email to notify you.
 
 **Autofetch button**
 
