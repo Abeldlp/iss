@@ -76,7 +76,7 @@ Go to the directory
 cd fullinfo
 ```
 
-Build docker images (cuf of coffee)
+Build docker images (cup of coffee)
 
 ```bash
 docker-compose build
