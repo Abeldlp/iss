@@ -21,7 +21,7 @@ func InitializeDatabase() {
 		panic("failed to connect database")
 	}
 
-	db.AutoMigrate(&model.SateliteLocation{})
+	db.AutoMigrate(&model.SateliteLocation{}, &model.User{})
 
 	DB = db
 }

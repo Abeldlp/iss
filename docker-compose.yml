@@ -55,6 +55,14 @@ services:
     depends_on:
       - app-db
 
+  # RabbitMQ Message broker
+  # message-broker:
+  #   image: rabbitmq:3-management-alpine
+  #   container_name: message-broker
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+
   #Database
   app-db:
     image: postgres
